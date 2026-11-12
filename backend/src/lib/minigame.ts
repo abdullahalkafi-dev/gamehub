@@ -98,6 +98,11 @@ class HttpMiniGame implements MiniGameClient {
       if (res.ok) return json as T;
       if (res.status === 404 && opts.allow404) return null;
       const code = String(json.code ?? 'upstream_error');
+      // The game is still in "demo" wallet mode: an owner setting, not something a player can fix.
+      if (code === 'wallet_not_enabled') {
+        console.error('[minigame] game wallet mode is not "managed": set it in the game dashboard (Settings)');
+        throw new AppError(503, 'wallet_not_configured', 'Coins are not available yet. Please try again later.');
+      }
       const mapped = STATUS_MAP[code];
       if (mapped) throw new AppError(mapped, code, String(json.error ?? code));
       // Anything else (bad key, wrong environment...) is our fault, not the user's.
