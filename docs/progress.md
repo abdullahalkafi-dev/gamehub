@@ -27,3 +27,7 @@
 **Still unverified / pending.** (1) Game wallet mode must be switched to Managed, then re-test signup bonus (100), shop purchase and the game itself on web and phone. (2) Webhook secret and address. (3) The APK uses the debug signing key. (4) Rotate the shared API key and Atlas password.
 
 **Next action.** After the two dashboard settings, run a full live journey: register, see 100 coins, play a round, check history, buy a pack.
+
+## 2026-11-12 late evening (Asia/Dhaka), wallet switched to Managed
+Blocker 1 is resolved: the game now reports `walletMode: "managed"`. Live browser journey on https://gamehub.joura.info (Edge, 1280 px): signup shows **100 coins**; buying the Popular pack moves the balance **100 → 1,750** instantly; the Global room loads the real Lucky Wheel 77 in the iframe with the live balance; a private room was created and opened; history page loads (empty until a round is played). No server errors. The test account was deleted. One empty test room (`u9df0e94591df`) could not be deleted at once (a player had just left, HTTP 409) and closes by itself after 30 minutes.
+Still pending: webhook address and secret; playing real rounds to see history fill; the Flutter WebView on a phone; rotate the shared API key and Atlas password; release signing for the APK.
