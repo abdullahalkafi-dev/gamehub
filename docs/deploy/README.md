@@ -24,10 +24,12 @@ The script fetches, checks out the ref, runs `docker compose up -d --build`, che
 
 ## New APK
 ```
-cd mobile && flutter build apk --release
-scp build/app/outputs/flutter-apk/app-release.apk root@<server>:/var/www/gamehub/download/gamehub.apk
+cd mobile && flutter build apk --release --split-per-abi
+scp build/app/outputs/flutter-apk/app-arm64-v8a-release.apk root@<server>:/var/www/gamehub/download/gamehub.apk
 ```
-The APK is signed with the debug key (fine for sideloading). Create a release keystore before publishing to Google Play.
+- The release is signed with our own certificate (CN=GameHub) using v1, v2 and v3 signatures. Some phones (e.g. Vivo) refuse APKs signed only with the generic Android debug certificate ("package appears to be invalid, missing the developer certificate").
+- Signing files are **not in git**: `mobile/android/gamehub-release.jks` and `mobile/android/key.properties` (store/key password, alias `gamehub`). **Back both up somewhere safe.** If they are lost, phones will refuse to update an installed app and everyone must uninstall first. Without `key.properties` the build falls back to the debug key.
+- The phone build is arm64 (almost every phone since 2017). A 32-bit phone needs `app-armeabi-v7a-release.apk`.
 
 ## One-time dashboard settings (game provider)
 1. Game → Settings → Where do coins come from → **Managed by my server** → Save.
