@@ -1,0 +1,85 @@
+@import 'tailwindcss';
+
+/* Design tokens (docs/design.md). Dark casino look: near-black, gold for money, violet for actions. */
+@theme {
+  --color-bg: #0a0a12;
+  --color-surface: #13131f;
+  --color-surface-2: #1b1b2b;
+  --color-line: #2a2a40;
+  --color-ink: #f1f0fa;
+  --color-muted: #a09fba; /* 7:1 on bg */
+  --color-gold: #f6bd45;
+  --color-gold-dim: #3a2f14;
+  --color-violet: #8467ff;
+  --color-violet-dim: #2a2250;
+  --color-win: #3ddc97;
+  --color-loss: #ff6b7a;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space), var(--font-inter), ui-sans-serif, sans-serif;
+  --radius-card: 1.1rem;
+}
+
+html {
+  color-scheme: dark;
+}
+body {
+  background: radial-gradient(1100px 500px at 50% -150px, #1c1540 0%, transparent 70%), var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  to {
+    background-position-x: -200%;
+  }
+}
+.skeleton {
+  background: linear-gradient(110deg, var(--color-surface) 8%, var(--color-surface-2) 18%, var(--color-surface) 33%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 0.75rem;
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.pop {
+  animation: pop 0.35s ease-out both;
+}
+@keyframes slide-up {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+.slide-up {
+  animation: slide-up 0.25s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton,
+  .pop,
+  .slide-up {
+    animation: none;
+  }
+}
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}

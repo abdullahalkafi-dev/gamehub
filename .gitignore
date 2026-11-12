@@ -1,0 +1,16 @@
+node_modules/
+.next/
+dist/
+build/
+.env
+.env.*
+!.env.example
+tmp/
+*.log
+.DS_Store
+coverage/
+mobile/**/build/
+mobile/**/.dart_tool/
+mobile/**/local.properties
+mobile/**/*.jks
+mobile/**/key.properties

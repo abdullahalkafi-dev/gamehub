@@ -1,0 +1,32 @@
+# GameHub: web + API. Uses a distinct project name and localhost-only ports so it
+# can share a server with other apps. MongoDB is MongoDB Atlas (external).
+name: gamehub
+
+services:
+  api:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      NODE_ENV: production
+      PORT: '4110'
+    ports:
+      - '127.0.0.1:4110:4110'
+    restart: unless-stopped
+    mem_limit: 320m
+    healthcheck:
+      test: ['CMD', 'node', '-e', "fetch('http://127.0.0.1:4110/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  web:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-https://api.gamehub.joura.info}
+    ports:
+      - '127.0.0.1:3110:3110'
+    restart: unless-stopped
+    mem_limit: 384m
+    depends_on:
+      - api
