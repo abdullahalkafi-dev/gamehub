@@ -10,7 +10,7 @@ Scope decisions: see `business-rules.md`. Hosting: shared VPS, Docker Compose pr
 | 2 | Rooms: global, create, private codes, limits | room tests (limit, privacy, race) pass | done |
 | 3 | Shop, webhook, history, leaderboard, admin | shop concurrency + webhook + history tests pass | done |
 | 4 | Web UI | typecheck, build, browser journey on desktop 1280 and mobile 390 | done (journey passed with the fake game platform) |
-| 5 | Deploy to the VPS | https health ok, register works on the live site | see `deploy/changes.md` |
-| 6 | Flutter APK | `flutter analyze` clean, APK builds, login and join work against the live API | see `progress.md` |
+| 5 | Deploy to the VPS | https health ok, register works on the live site | done (see `deploy/changes.md`) |
+| 6 | Flutter APK | `flutter analyze` clean, APK builds, login and join work against the live API | built; login and lobby verified, game WebView pending (see `progress.md`) |
 
 Open dependency on the game provider side: the game must be set to **Managed** wallet mode and the webhook address/secret saved on the API key page (see `progress.md`).

@@ -16,3 +16,14 @@
 3. Security hygiene: the live API key and the Atlas password were shared in chat. Rotate the key on the API key page and use a dedicated Atlas user limited to `gamehub`.
 
 **Next.** Deploy (phase 5), then the Flutter APK (phase 6).
+
+## 2026-11-12 22:30 to 23:45 (Asia/Dhaka)
+**Phase 5, deploy (commit `ee034f3`).** Live at https://gamehub.joura.info (web) and https://api.gamehub.joura.info (API). Container, nginx and certificate details in `docs/deploy/changes.md`. Checks run on the live site: health, web 200, http→https 301, CORS accepts only the web origin, signed-out requests return 401, register and lobby work. Atlas accepts the server's IP.
+
+**Phase 6, Flutter app (`mobile/`).** Login/register, rooms (global, create, join by code, delete own), play (WebView with the `MiniGames` channel, out-of-coins sheet), history with stats, shop, profile. `flutter analyze`: no issues. Release APK built (about 51 MB) and uploaded to `https://gamehub.joura.info/download/gamehub.apk`. On an Android emulator against the live API: login screen, login and the lobby verified. The game WebView was **not** verified (the emulator crashed; the wallet is also not in managed mode yet).
+
+**Cleanup.** Deleted my two smoke-test accounts from the `gamehub` database (only the admin remains). Local throwaway servers stopped.
+
+**Still unverified / pending.** (1) Game wallet mode must be switched to Managed, then re-test signup bonus (100), shop purchase and the game itself on web and phone. (2) Webhook secret and address. (3) The APK uses the debug signing key. (4) Rotate the shared API key and Atlas password.
+
+**Next action.** After the two dashboard settings, run a full live journey: register, see 100 coins, play a round, check history, buy a pack.

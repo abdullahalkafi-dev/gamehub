@@ -22,3 +22,6 @@ See [docs/deploy/README.md](docs/deploy/README.md).
 
 ## Docs
 [plan](docs/plan.md) · [progress](docs/progress.md) · [business rules](docs/business-rules.md) · [architecture](docs/architecture.md) · [design](docs/design.md) · [API](docs/api.md)
+
+## Android app
+Source in `mobile/` (Flutter). Build: `cd mobile && flutter pub get && flutter build apk --release` (API address can be changed with `--dart-define=API_URL=...`). Download the current build at https://gamehub.joura.info/download/gamehub.apk
